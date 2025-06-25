@@ -29,7 +29,9 @@ pub fn swap_endian_u32(num: u32) -> [u8; 4] {
 
 pub fn parse_satoshis(input: &str) -> Result<u64, String> {
     // TODO: Parse input string to u64, return error string if invalid
-    input.parse::<u64>().map_err(|_| "Invalid satoshi amount".to_string())
+    input
+        .parse::<u64>()
+        .map_err(|_| "Invalid satoshi amount".to_string())
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -40,7 +42,7 @@ pub enum ScriptType {
 }
 
 pub fn classify_script(script: &[u8]) -> ScriptType {
-     // TODO: Match script pattern and return corresponding ScriptType
+    // TODO: Match script pattern and return corresponding ScriptType
     if script.len() >= 3 && script[0] == 0x76 && script[1] == 0xa9 && script[2] == 0x14 {
         ScriptType::P2PKH
     } else if script.len() >= 2 && script[0] == 0x00 && script[1] == 0x14 {
@@ -97,10 +99,10 @@ impl Opcode {
     pub fn from_byte(byte: u8) -> Result<Self, String> {
         // TODO: Implement mapping from byte to Opcode variant
         match byte {
-        0xac => Ok(Opcode::OpChecksig),
-        0x76 => Ok(Opcode::OpDup),
-        _ => Err(format!("Invalid opcode: 0x{:02x}", byte)), // <-- zero-padded
-    }
+            0xac => Ok(Opcode::OpChecksig),
+            0x76 => Ok(Opcode::OpDup),
+            _ => Err(format!("Invalid opcode: 0x{:02x}", byte)), // <-- zero-padded
+        }
     }
 }
 
